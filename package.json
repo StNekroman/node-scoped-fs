@@ -1,0 +1,25 @@
+{
+  "name": "node-scoped-fs",
+  "version": "0.0.1",
+  "description": "Scoped file system for nodejs core FS",
+  "main": "./ScopedFS.js",
+  "types": "./ScopedFS.ts",
+  "exports": {
+    ".": "./ScopedFS.js"
+  },
+  "author": {
+    "name": "StNekroman",
+    "email": "StNekroman@gmail.com"
+  },
+  "repository": {
+    "url": "https://github.com/StNekroman/node-scoped-fs"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "18.7.3",
+    "typescript": "4.7.4"
+  }
+}
