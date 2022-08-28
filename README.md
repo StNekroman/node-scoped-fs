@@ -1,3 +1,5 @@
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine/)
+
 # node-scoped-fs
 Scoped file system for nodejs core FS.
 Module to create file systems, bound to one or few directories on host system with read/write permissions.
@@ -9,16 +11,16 @@ Covers all knows FS methods (at the moment) and .promises versions too.
 import { ScopedFS } from "node-scoped-fs";
 
 const aliases : Record<string, string> = {
-	"." : gameDefDir
+    "." : gameDefDir
 };
 const scopedFS = ScopedFS.create({
-	readScopes: ["/usr/canReadFromHere", "/tmp/canReadFromHere"], // additionally, includes all writeScopes in "read" scope.
-	writeScopes: ["/tmp/canWriteHereOnly"],
-	aliases: {
-		"." : "/tmp/canWriteHereOnly",
-		"%readDir%": "/usr/canReadFromHere"
-		"%writeDir%": "/tmp/canWriteHereOnly"
-	}
+    readScopes: ["/usr/canReadFromHere", "/tmp/canReadFromHere"], // additionally, includes all writeScopes in "read" scope.
+    writeScopes: ["/tmp/canWriteHereOnly"],
+    aliases: {
+        "." : "/tmp/canWriteHereOnly",
+        "%readDir%": "/usr/canReadFromHere"
+        "%writeDir%": "/tmp/canWriteHereOnly"
+   }
 })
 
 scopedFS; // now it's FS-compatible object with functions, which reflect FS functionality.
