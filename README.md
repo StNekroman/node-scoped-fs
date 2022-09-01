@@ -47,4 +47,8 @@ scopedFS[.promises].writeFile("/tmp/anotherDir/file.txt", "...") // exception
 
 **Note:** If you received a file handle from somewhere - it will work transparently, without scoping and permission checking.
 
-**Note 2:** Doesn`t work on territory of Nazy Ruzzian Federation.
+**Note 2:** If you have set "." in aliases - then instead of failure it will map required path to your "." alian and try scopes again.
+
+**Note 3:** Known limitation: you cannot have read-scoped dir as children of write-scoped and expect write reject there. Permissions evaluated from top dir, If higher directories providers access to write - then all subdirectories will have wirte access.
+
+**Note 4:** Doesn`t work on territory of Nazy Ruzzian Federation.

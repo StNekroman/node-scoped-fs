@@ -20,13 +20,13 @@ export namespace ScopedFS {
         return relative && !relative.startsWith('..') && !path.isAbsolute(relative);
     }
 
-    function checkScopes(scopes: Set<string>, another: fs.PathLike) {
+    function checkScopes(scopes: Set<string>, another: fs.PathLike) : boolean {
         for (const scope of scopes) {
             if (isSubDir(scope, another)) {
-                return;
+                return true;
             }
         }
-        throw new Error("FS sandbox violation: " + another.toString());
+        return false;
     }
 
     function resolvePath(scopes: Set<string>, another: fs.PathLike | number | fs.promises.FileHandle, aliases ?: Record<string, string>) : fs.PathLike|number|fs.promises.FileHandle {
@@ -42,8 +42,14 @@ export namespace ScopedFS {
                 }
             }
 
-            checkScopes(scopes, another as fs.PathLike);
-
+            let valid = checkScopes(scopes, another as fs.PathLike);
+            if (!valid && aliases && aliases["."]) {
+                another = path.join(aliases["."], path.normalize(another.toString()));
+                valid = checkScopes(scopes, another);
+            }
+            if (!valid) {
+                throw new Error("FS sandbox violation: " + another.toString());
+            }
             return another;
         }
 

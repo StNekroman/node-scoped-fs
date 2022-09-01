@@ -35,10 +35,10 @@ var ScopedFS;
     function checkScopes(scopes, another) {
         for (const scope of scopes) {
             if (isSubDir(scope, another)) {
-                return;
+                return true;
             }
         }
-        throw new Error("FS sandbox violation: " + another.toString());
+        return false;
     }
     function resolvePath(scopes, another, aliases) {
         if (another && typeof another !== "number" && another.fd === undefined) {
@@ -51,7 +51,14 @@ var ScopedFS;
                     another = parts.join(path.sep);
                 }
             }
-            checkScopes(scopes, another);
+            let valid = checkScopes(scopes, another);
+            if (!valid && aliases && aliases["."]) {
+                another = path.join(aliases["."], path.normalize(another.toString()));
+                valid = checkScopes(scopes, another);
+            }
+            if (!valid) {
+                throw new Error("FS sandbox violation: " + another.toString());
+            }
             return another;
         }
         return another;
