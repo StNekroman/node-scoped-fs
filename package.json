@@ -1,6 +1,6 @@
 {
   "name": "node-scoped-fs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Scoped file system for nodejs core FS",
   "main": "./ScopedFS.js",
   "types": "./ScopedFS.ts",

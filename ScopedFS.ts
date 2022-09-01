@@ -26,8 +26,7 @@ export namespace ScopedFS {
                 return;
             }
         }
-
-        throw new Error("FS sandbox violation");
+        throw new Error("FS sandbox violation: " + another.toString());
     }
 
     function resolvePath(scopes: Set<string>, another: fs.PathLike | number | fs.promises.FileHandle, aliases ?: Record<string, string>) : fs.PathLike|number|fs.promises.FileHandle {

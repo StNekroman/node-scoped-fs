@@ -38,7 +38,7 @@ var ScopedFS;
                 return;
             }
         }
-        throw new Error("FS sandbox violation");
+        throw new Error("FS sandbox violation: " + another.toString());
     }
     function resolvePath(scopes, another, aliases) {
         if (another && typeof another !== "number" && another.fd === undefined) {
